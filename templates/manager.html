@@ -1,0 +1,144 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!-- Custom navbar items -->
+<li class="nav-item">
+    <a id="navManager" class="nav-link" href="/manager">Records</a>
+</li>
+<li class="nav-item">
+    <a id="navCreateStaffAccount" class="nav-link" href="/createStaffAccount">Create Staff</a>
+</li>
+<li class="nav-item">
+    <a id="navLogout" class="nav-link" href="/logout">LogOut</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<head>
+    <style>
+        /* Custom page styling */
+        h1 {
+            color: black;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .table-container {
+            width: 90%;
+            margin: 0 auto;
+            overflow-y: auto; 
+            max-height: 70vh; 
+            border: 1px solid black;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #5cba00;
+            color: white;
+            font-weight: 600;
+            position: sticky; 
+            top: 0; 
+            z-index: 2;
+        }
+        td a {
+            display: inline-block;
+            padding: 5px 10px;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        td .cancel-link {
+            color: red;
+            text-decoration: none;
+        }
+        td .cancel-link:hover {
+            text-decoration: underline;
+        }
+        td input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        td button {
+            width: 100%;
+            padding: 5px;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<!-- Main content area -->
+<h1>Service Record</h1>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>RecordId</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Maintenance Item</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Leader Staff</th>
+                <th>Assist Staff</th>
+                <th>Total Expenditure</th>
+                <th>Detail</th>
+                <th>Cancel Scheduled Booking</th>
+                <th>Enter Total Charge</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record, color in record_color %}
+            <!-- Each row is styled with a background color based on status -->
+            <tr style="background-color: {{ color }};">
+                <td data-label="serviceId">{{ record[4] }}</td>
+                <td data-label="Make">{{ record[7] }}</td>
+                <td data-label="Model">{{ record[8] }}</td>
+                <td data-label="Maintenance Items">{{ record[0] }}</td>
+                <td data-label="Current Status">{{ record[1] }}</td>
+                <td data-label="Maintenance Date">{{ record[2] }}</td>
+                <td data-label="Leader Staff">{{ record[5] }}</td>
+                <td data-label="Help Staff">{{ record[6] }}</td>
+                <td data-label="Total Spend">
+                    {% if record[3] != None %}
+                        £{{ record[3] }}
+                    {% else %}
+                        {{ record[3] }}
+                    {% endif %}
+                </td>
+                <td data-label="Service Detail">
+                    <!-- Link to view service detail -->
+                    <a href="/serviceDetail/{{ record[4] }}" class="btn btn-secondary">View</a>
+                </td>
+                <td data-label="Cancel">
+                    <!-- Show cancel link if status is "Scheduled" -->
+                    {% if record[1] == "Scheduled" %}
+                        <a href="/deleteRecord/{{ record[4] }}" class="cancel-link">Cancel</a>
+                    {% endif %}
+                </td>
+                <td data-label="Price">
+                    <!-- If the job is done, allow entering the total charge -->
+                    {% if record[1] == "Done" %}
+                    <form action="/enterPrice/{{ record[4] }}" method="POST">
+                        <input type="text" class="form-control" id="price" name="price" placeholder="Enter Charge (£)"> 
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>                
+    </table>
+</div>
+{% endblock %}

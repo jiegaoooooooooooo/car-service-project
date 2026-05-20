@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!-- Custom navbar items for this page -->
+<li class="nav-item">
+  <a id="navHome" class="nav-link" href="/">Home</a>
+</li>
+<li class="nav-item">
+  <a id="navLogin" class="nav-link active" href="/login">LogIn</a>
+</li>
+<li class="nav-item">
+  <a id="navSignUp" class="nav-link" href="/signUp">SignUp</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<!-- Main content area -->
+<div class="container">
+    <div class="text-center">
+        <!-- Display the logo -->
+        <img src="{{url_for('static', filename='images/logo.png')}}" alt="Apple Garage Logo" style="width: 400px; margin-top: 50px;">
+    </div>
+    
+    <!-- Describe Web Section -->
+    <div class="services my-5 py-4 text-center" id="services" style="background-color: #e8f5e9; border-radius: 10px;">
+        <h2 class="mb-3" style="color: #5cba00;">Our Services</h2>
+        <p>We offer a variety of car services including maintenance, repair, and MOT testing.</p>
+    </div>
+    <div class="about my-5 py-4 text-center" id="about" style="background-color: #f1f8e9; border-radius: 10px;">
+        <h2 class="mb-3" style="color: #5cba00;">About Us</h2>
+        <p>Our team of experienced mechanics are here to provide the best service possible.</p>
+    </div>
+    <div class="contact my-5 py-4 text-center" id="contact" style="background-color: #dcedc8; border-radius: 10px;">
+        <h2 class="mb-3" style="color: #5cba00;">Contact Us</h2>
+        <p>Feel free to reach out to us for any inquiries or to schedule an appointment.</p>
+        <p>Our number: 07849511222</p>
+    </div>
+</div>
+{% endblock %}

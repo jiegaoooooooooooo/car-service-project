@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!-- Custom navbar items -->
+<li class="nav-item">
+    <a id="navCustomer" class="nav-link" href="/customer">My Car</a>
+</li>
+<li class="nav-item">
+    <a id="navAddCar" class="nav-link" href="/addCar">Add New Car</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<head>
+    <style>
+        /* Styling for the custom container */
+        .custom-container {
+            background-color: #5cba00;
+            padding: 20px;
+            border-radius: 8px; 
+        }
+    </style>
+</head>
+<body>
+    <!-- Main content area -->
+    <div class="container mt-5 custom-container">
+        <h1 class="mt-5">Vehicle Details</h1>
+        <ul class="list-group mt-3">
+            {% for i in range(num) %}
+                <!-- Loop over each vehicle detail -->
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <strong>{{ title[i] }}:</strong>
+                    <span>{{ detail[i] }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        {% if title[-1] != "model" %}
+            <div class="card mt-4">
+                <div class="card-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <strong for="model">Enter Car Model:</strong>
+                            <input type="text" class="form-control" id="model" name="model" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+        <div class="mt-4 d-flex justify-content-between">
+            <a href="/addCar" class="btn btn-secondary">Back</a>
+            {% if title[-1] == "model" %}
+            <form action="/store_detail" method="POST">
+                <button type="submit" class="btn btn-primary">Save detail</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</body>
+{% endblock %}

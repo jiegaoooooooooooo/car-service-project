@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!-- No navbar items defined in this template -->
+{% endblock %}
+
+{% block body %}
+<head>
+    <style>
+        /* Define custom styling for the container */
+        .custom-container {
+            background-color: #5cba00;
+            padding: 20px;
+            border-radius: 8px; 
+        }
+    </style>
+</head>
+<body>
+    <!-- Main content area -->
+    <div class="container mt-5 custom-container">
+        <h1 class="mt-5">Vehicle Details</h1>
+        <ul class="list-group mt-3">
+            {% for i in range(num) %}
+                <!-- Loop through each vehicle detail -->
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <strong>{{ title[i] }}:</strong>
+                    <span>{{ detail[i] }}</span>
+                </li>
+            {% endfor %}    
+            <div class="mt-4 d-flex justify-content-between">
+                <a id="backButton" href="/customer" class="btn btn-secondary">Back</a>
+            </div>
+        </ul>
+    </div>
+</body>
+<script>
+    // Navback based on user type
+    function setBackButtonHref() {
+        var backButton = document.getElementById('backButton');
+        var referrer = document.referrer;
+        if (referrer.includes('/staff')) {
+            backButton.href = '/staff';
+        } else {
+            backButton.href = '/customer'; 
+        }
+    }
+    window.onload = setBackButtonHref;
+</script>
+{% endblock %}

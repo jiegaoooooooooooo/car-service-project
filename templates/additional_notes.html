@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!-- No navbar content defined for this page -->
+{% endblock %}
+
+{% block body %}
+<head>
+    <style>
+        /* Custom container styling */
+        .custom-container {
+            background-color: #5cba00;
+            padding: 20px;
+            border-radius: 8px; 
+        }
+    </style>
+</head>
+<body>
+    <!-- Main content area -->
+    <div class="container mt-5 custom-container">
+        <h1 class="mt-5">Additional Notes</h1>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="job-details">
+                    <p class="text-muted">{{ detail }}</p>
+                </div>
+            </div>
+            <div class="card-footer text-end">
+                <a id="backButton" href="/staff" class="btn btn-secondary">Back</a>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // Set the back button's href based on the referrer URL
+    function setBackButtonHref() {
+        var backButton = document.getElementById('backButton');
+        var referrer = document.referrer;
+        if (referrer.includes('/staff')) {
+            backButton.href = '/staff';
+        } else {
+            backButton.href = '/job'; 
+        }
+    }
+    window.onload = setBackButtonHref;
+</script>
+{% endblock %}

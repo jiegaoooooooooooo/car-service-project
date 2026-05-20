@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!-- Custom navbar items -->
+<li class="nav-item">
+    <a id="navManager" class="nav-link" href="/manager">Records</a>
+</li>
+<li class="nav-item">
+    <a id="navCreateStaffAccount" class="nav-link" href="/createStaffAccount">Create Staff</a>
+</li>
+<li class="nav-item">
+    <a id="navLogout" class="nav-link" href="/logout">LogOut</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<!-- Main content area -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            {% if error %}
+            <!-- Display error message if present -->
+            <div class="alert alert-danger text-center">
+                {{ error }}
+            </div>
+            {% endif %}
+            <div class="card mt-5" style="border: 20px solid #5cba00; border-radius: 8px;">
+                <div class="card-body">
+                    <h3 class="text-center mb-4">Create Staff Account</h3>
+                    <form action="/create_Staff_Account" method="POST">
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="password">Password:</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+                        </div>
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

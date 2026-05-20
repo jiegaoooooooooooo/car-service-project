@@ -1,0 +1,263 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!-- Custom navbar items -->
+<li class="nav-item">
+    <a id="navJob" class="nav-link" href="/job">My Job</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<head>
+    <style>
+        /* Custom page styling */
+        .custom-container {
+            background-color: #5cba00;
+            padding: 20px;
+            border-radius: 8px;
+            color: black;
+        }
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .d-grid a, .d-grid button {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        h1 {
+            color: black;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        h4 {
+            color: black;
+        }
+        .row-header {
+            background-color: gray;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+        .row-data {
+            background-color: white;
+            padding: 10px;
+            border-bottom: 1px solid gray;
+            transition: background-color 0.3s ease;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+        .row-data .col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .d-flex {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .button-group a {
+            flex: 1 1 100%;
+            max-width: 300px;
+            text-align: center;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .back-to-top:hover {
+            background-color: #0056b3;
+        }
+        [id] {
+            scroll-margin-top: 80px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main content area -->
+    <div class="container mt-5 custom-container">
+        <!-- Navigation jump buttons -->
+        <div class="button-group">
+            <a href="#add-staff" class="btn btn-primary">Jump to Add Staff</a>
+            <a href="#car-detail" class="btn btn-primary">Jump to Car Detail</a>
+            <a href="#car-parts" class="btn btn-primary">Jump to Car Parts</a>
+            <a href="#car-problem" class="btn btn-primary">Jump to Car Problem</a>
+            <a href="#additional-notes" class="btn btn-primary">Jump to Additional Notes By Customer</a>
+            <a href="#job-status" class="btn btn-primary">Jump to Manage Job Status</a>
+        </div>
+        <h1 class="text-center">Working on {{ type }} - {{ reg }}</h1>
+        <!-- Add Staff Section -->
+        <div id="add-staff" class="card">
+            <h4 class="text-center mb-3">Add Staff You Are Working With</h4>
+            <form action="/addStaff" method="POST">
+                <div class="form-group mb-3">
+                    {% with error = get_flashed_messages(with_categories=True) %}
+                        {% if error %}
+                            {% for category, error in error %}
+                                <div class="alert alert-danger text-center">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <label for="staff">Staff Name:</label>
+                    <select class="form-control" id="staff" name="staff" required>
+                        <option value="">-- Please choose a staff --</option>
+                        {% for each in staff %}
+                            <option value="{{ each }}">{{ each }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary btn-block">Add</button>
+                </div>
+            </form>
+        </div>
+        <!-- Car Detail Section -->
+        <div id="car-detail" class="card">
+            <div class="card-body">
+                <h1>{{ reg }}:Car Detail</h1>
+                <div class="row row-header text-center">
+                    <div class="col">Title</div>
+                    <div class="col">Detail</div>
+                </div>
+                {% for i in range(num) %}
+                <div class="row row-data text-center">
+                    <div class="col">{{ title[i] }}:</div>
+                    <div class="col">{{ detail[i] }}</div>
+                </div>
+                {% endfor %}    
+            </div>
+        </div>
+        <!-- Additional Notes Section -->
+        <div id="additional-notes" class="card shadow-sm">
+            <h1 class="mt-5">Additional Notes By Customer</h1>
+            <div class="card-body">
+                <div class="job-details">
+                    <p class="text-muted">{{ note }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Car Parts Section -->
+        <div id="car-parts" class="card">
+            <h4 class="text-center mb-3">Add Car Parts Used</h4>
+            <form action="/addParts" method="POST">
+                <div class="form-group mb-3">
+                    <label for="parts">Car Parts:</label>
+                    <input type="text" class="form-control" id="parts" name="parts" placeholder="Enter Part Name" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="parts">Euro Car Parts product code:</label>
+                    <input type="text" class="form-control" id="partId" name="partId" placeholder="Enter Product code" required>
+                </div>
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary btn-block">Add Car Parts</button>
+                </div>
+            </form>
+        </div>
+        <!-- Car Parts Used History Section -->
+        <div class="card">
+            <div class="card-body">
+                <h1>{{ reg }}:Car Parts Used History</h1>
+                <div class="row row-header text-center">
+                    <div class="col">Part Name</div>
+                    <div class="col">Euro Car Parts product code</div>
+                    <div class="col">Service Item</div>
+                    <div class="col">Date</div>
+                </div>
+                {% for parts in parts %}
+                <div class="row row-data text-center">
+                    <div class="col">{{ parts[0] }}</div>
+                    <div class="col">{{ parts[3] }}</div>
+                    <div class="col">{{ parts[1] }}</div>
+                    <div class="col">{{ parts[2] }}</div>
+                </div>
+                {% endfor %}
+            </div>                 
+        </div>
+        <!-- Car Problem Section -->
+        <div id="car-problem" class="card">
+            <h4 class="text-center mb-3">Add Problem Encountered</h4>
+            <form action="/addProblem" method="POST">
+                <div class="form-group mb-3">
+                    <label for="problem">Enter Problem:</label>
+                    <input type="text" class="form-control" id="problem" name="problem" placeholder="Enter Problem" required>
+                </div>
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary btn-block">Add Problem</button>
+                </div>
+            </form>
+        </div>
+        <!-- Problem History Section -->
+        <div class="card">
+            <div class="card-body">
+                <h1>{{ make }},{{ model }}:Problem History</h1>
+                <div class="row row-header text-center">
+                    <div class="col">Problem</div>
+                    <div class="col">Service Item</div>
+                    <div class="col">Date</div>
+                </div>
+                {% for problem in problem %}
+                <div class="row row-data text-center">
+                    <div class="col">{{ problem[0] }}</div>
+                    <div class="col">{{ problem[1] }}</div>
+                    <div class="col">{{ problem[2] }}</div>
+                </div>
+                {% endfor %}
+            </div>                 
+        </div>
+        <!-- Manage Job Status Section -->
+        <div id="job-status" class="card">
+            <h4 class="text-center mb-3">Manage Job Status</h4>
+            <div class="d-grid gap-2">
+                <a href="/pause/{{ serviceId }}" class="btn btn-warning">Pause Job</a>
+                <a href="/complete/{{ serviceId }}" class="btn btn-success">Complete Job</a>
+            </div>
+        </div>
+        <!-- Back-to-top button -->
+        <button id="backToTop" class="back-to-top">↑</button>
+    </div>
+    <script>
+        // Display the back-to-top button after scrolling down
+        window.onscroll = function() {
+            var backToTop = document.getElementById('backToTop');
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTop.style.display = "block";
+            } else {
+                backToTop.style.display = "none";
+            }
+        };
+        document.getElementById('backToTop').onclick = function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+    </script>
+</body>
+{% endblock %}

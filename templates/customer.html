@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!-- Custom navbar -->
+<li class="nav-item">
+    <a id="navCustomer" class="nav-link" href="/customer">My Car</a>
+</li>
+<li class="nav-item">
+    <a id="navAddCar" class="nav-link" href="/addCar">Add New Car</a>
+</li>
+<li class="nav-item">
+    <a id="navLogout" class="nav-link" href="/logout">LogOut</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<!-- Inline styling for the page -->
+<head>
+    <style>
+        body {
+            background-color: #5cba00;
+            font-family: Arial, sans-serif;
+        }
+        .custom-container {
+            background-color: #5cba00;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .car-title {
+            font-size: 1.75em;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 10px;
+        }
+        .car-details {
+            display: flex;
+            justify-content: flex-start;
+            gap: 30px; 
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: white;
+        }
+        .car-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .car-buttons .btn {
+            margin-left: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .car-buttons .btn:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main content area -->
+    <div class="container mt-5">
+        <h1>My Car</h1>
+        {% for car in car %}
+        <div class="custom-container">
+            <div class="car-title">
+                {{ car[0] }}
+            </div>
+            <div class="car-details">
+                <span>Make: {{ car[1] }}</span>
+                <span>Model: {{ car[2] }}</span>
+            </div>
+            <div class="car-buttons">
+                <a href="/car_detail/{{ car[0] }}" class="btn btn-secondary">View Detail Of The Car</a>
+                <a href="/record/{{ car[0] }}" class="btn btn-secondary">View Maintenance Record</a>
+                <a href="/booking/{{ car[0] }}" class="btn btn-secondary">Book Service</a>
+                <a href="/delete_car/{{ car[0] }}" class="btn btn-secondary">Delete This Car</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+{% endblock %}

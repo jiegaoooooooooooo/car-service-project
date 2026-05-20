@@ -1,0 +1,92 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!-- Custom navbar items -->
+<li class="nav-item">
+    <a id="navStaff" class="nav-link" href="/staff">Home</a>
+</li>
+<li class="nav-item">
+    <a id="navAttendance" class="nav-link" href="/attendance/{{ id }}">Attendance</a>
+</li>
+<li class="nav-item">
+    <a id="navJobHistory" class="nav-link" href="/jobHistory">Job History</a>
+</li>
+<li class="nav-item">
+    <a id="navLogout" class="nav-link" href="/logout">LogOut</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<head>
+    <style>
+        /* Custom page styling */
+        .custom-container {
+            background-color: #5cba00;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: black;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .row-header {
+            background-color: gray;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .row-data {
+            background-color: white;
+            padding: 10px;
+            border-bottom: 1px solid gray;
+            transition: background-color 0.3s ease;
+        }
+
+        .row-data .col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .d-flex {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<!-- Main content area -->
+<div class="container mt-5 custom-container">
+    <div class="card">
+        <div class="card-body">
+            <h1>My Job History</h1>
+            <div class="row row-header text-center">
+                <div class="col">Maintenance Items</div>
+                <div class="col">Current Status</div>
+                <div class="col">Maintenance Date</div>
+                <div class="col">Car Make</div>
+                <div class="col">Car Model</div>
+                <div class="col">Registration Number</div>
+            </div>
+            {% for record in record %}
+            <div class="row row-data text-center">
+                <div class="col">{{ record[0] }}</div>
+                <div class="col">{{ record[1] }}</div>
+                <div class="col">{{ record[2] }}</div>
+                <div class="col">{{ record[3] }}</div>
+                <div class="col">{{ record[4] }}</div>
+                <div class="col">{{ record[5] }}</div>
+            </div>
+            {% endfor %}
+        </div>                 
+    </div>
+</div>
+{% endblock %}

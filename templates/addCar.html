@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!-- Custom navbar items -->
+<li class="nav-item">
+    <a id="navCustomer" class="nav-link" href="/customer">My Car</a>
+</li>
+<li class="nav-item">
+    <a id="navAddCar" class="nav-link" href="/addCar">Add New Car</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<!-- Inline style for custom container -->
+<head>
+    <style>
+        .custom-container {
+            background-color: #5cba00;
+            padding: 20px;
+            border-radius: 8px; 
+        }
+    </style>
+</head>
+<!-- Main content area -->
+<div class="container mt-5 custom-container">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title text-center">Enter Registration Number</h3>
+            {% if error %}
+            <!-- Display error message if exists -->
+            <div class="alert alert-danger text-center">
+                {{ error }}
+            </div>
+            {% endif %}
+            <form action="/regNumber" method="POST">
+                <div class="form-group">
+                    <label for="regNumber">Registration Number:</label>
+                    <input type="text" name="regNumber" id="regNumber" class="form-control" required>
+                </div>
+                <div class="mt-4 d-flex justify-content-between">
+                    <a href="/customer" class="btn btn-secondary">Back</a>
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

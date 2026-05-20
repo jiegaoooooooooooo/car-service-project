@@ -1,0 +1,110 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!-- Custom navbar items -->
+<li class="nav-item">
+    <a id="navCustomer" class="nav-link" href="/customer">My Car</a>
+</li>
+<li class="nav-item">
+    <a id="navLogout" class="nav-link" href="/logout">LogOut</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<head>
+    <style>
+        /* Custom page styling */
+        .custom-container {
+            background-color: #5cba00;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: black;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .row-header {
+            background-color: gray;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .row-data {
+            background-color: white;
+            padding: 10px;
+            border-bottom: 1px solid gray;
+            transition: background-color 0.3s ease;
+        }
+
+        .row-data .col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        a.cancel-link {
+            color: red;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a.cancel-link:hover {
+            text-decoration: underline;
+        }
+
+        .d-flex {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<!-- Main content area -->
+<div class="container mt-5 custom-container">
+    <div class="card">
+        <div class="card-body">
+            <h1>Maintenance Record</h1>
+            <!-- Header row for service record columns -->
+            <div class="row row-header text-center">
+                <div class="col">Maintenance Items</div>
+                <div class="col">Current Status</div>
+                <div class="col">Maintenance Date</div>
+                <div class="col">Total Expenditure</div>
+                <div class="col">Cancel Scheduled Booking</div>
+            </div>
+            {% for record in record %}
+            <div class="row row-data text-center">
+                <div class="col">{{ record[0] }}</div>
+                <div class="col">{{ record[1] }}</div>
+                <div class="col">{{ record[2] }}</div>
+                <div class="col">
+                    {% if record[3] != None %}
+                        £{{ record[3] }}
+                    {% else %}
+                        {{ record[3] }}
+                    {% endif %}
+                </div>
+                <div class="col">
+                    {% if record[1] == "Scheduled" %}
+                    <!-- Show cancel link only for scheduled records -->
+                    <a href="/delete_record/{{ record[5] }}/{{ record[4] }}" class="cancel-link">Cancel</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            <!-- Back button -->
+            <div class="d-flex">
+                <a href="/customer" class="btn btn-secondary">Back</a>
+            </div>
+        </div>                 
+    </div>
+</div>
+{% endblock %}

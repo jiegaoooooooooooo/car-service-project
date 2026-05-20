@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!-- Custom navbar -->
+<li class="nav-item">
+    <a id="navCustomer" class="nav-link" href="/customer">My Car</a>
+</li>
+<li class="nav-item">
+    <a id="navAddCar" class="nav-link" href="/addCar">Add New Car</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<!-- Main content area -->
+<head>
+    <title>Vehicle Details</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="alert alert-danger text-center" role="alert">
+                    <strong>Error!</strong> Can't find this car.
+                </div>
+                <div class="text-center mt-4">
+                    <a href="/addCar" class="btn btn-secondary">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelector('#navHome').classList.add("active");
+    </script>
+</body>
+{% endblock %}

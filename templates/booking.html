@@ -1,0 +1,103 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!-- Custom navbar items -->
+<li class="nav-item">
+    <a id="navCustomer" class="nav-link" href="/customer">My Car</a>
+</li>
+<li class="nav-item">
+    <a id="navLogout" class="nav-link" href="/logout">LogOut</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<head>
+    <style>
+        /* Custom page styling */
+        .custom-container {
+            background-color: #5cba00;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .custom-container h2 {
+            color: black;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: black;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        .d-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<!-- Main content area -->
+<div class="container mt-5 custom-container">
+    <div class="card">
+        <div class="card-body">
+            <h2>Book Your Service</h2>
+            <form action="/add_booking/{{reg}}" method="POST">
+                <div class="form-group">
+                    <label for="service">Select Service:</label>
+                    <select class="form-control" id="service" name="service" required>
+                        <option value="">-- Please choose an option --</option>
+                        <option value="MOT">MOT</option>
+                        <option value="Oil Change">Oil Change</option>
+                        <option value="Full Service">Full Service (Oil Change, Air Filter Change, Fuel Filter Change, Pollen Filter Change)</option>
+                        <option value="Brakes">Brakes</option>
+                        <option value="Engine Parts">Engine Parts</option>
+                        <option value="Suspension & Steering">Suspension & Steering</option>
+                        <option value="Transmission">Transmission</option>
+                        <option value="Cooling & Heating">Cooling & Heating</option>
+                        <option value="Electrics & Lighting">Electrics & Lighting</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <!-- Additional input for 'Other' service, hidden by default -->
+                <div class="form-group" id="otherServiceContainer" style="display: none;">
+                    <label for="otherService">Please specify:</label>
+                    <input type="text" class="form-control" id="otherService" name="otherService" placeholder="Specify your service">
+                </div>
+                <div class="form-group" id="detail">
+                    <label for="otherService">Additional Notes(Optional):</label>
+                    <input type="text" class="form-control" id="detail" name="detail" placeholder="-- Write Down Your Additional Notes --">
+                </div>
+                <div class="form-group">
+                    <label for="date">Select Date:</label>
+                    <input type="date" class="form-control" id="date" name="date" value="{{ request.form.get('date', '') }}" min="{{ today }}" required>
+                </div>
+                <div class="mt-4 d-flex justify-content-between">
+                    <a href="/customer" class="btn btn-secondary">Back</a>
+                    <button type="submit" class="btn btn-primary">Book Now</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Determine the visibility of the 'Other' service input based on selection
+    document.getElementById('service').addEventListener('change', function() {
+        var otherServiceContainer = document.getElementById('otherServiceContainer');
+        if (this.value === 'Other') {
+            otherServiceContainer.style.display = 'block';
+        } else {
+            otherServiceContainer.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

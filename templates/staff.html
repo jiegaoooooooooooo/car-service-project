@@ -1,0 +1,108 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!-- Custom navbar items -->
+<li class="nav-item">
+    <a id="navStaff" class="nav-link" href="/staff">Home</a>
+</li>
+<li class="nav-item">
+    <a id="navAttendance" class="nav-link" href="/attendance/{{ id }}">Attendance</a>
+</li>
+<li class="nav-item">
+    <a id="navJobHistory" class="nav-link" href="/jobHistory">Job History</a>
+</li>
+<li class="nav-item">
+    <a id="navLogout" class="nav-link" href="/logout">LogOut</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<head>
+    <style>
+        /* Custom page styling */
+        body {
+            background-color: #5cba00;
+            font-family: Arial, sans-serif;
+        }
+        .custom-container {
+            background-color: #5cba00;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .job-title {
+            font-size: 1.75em;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        .job-details {
+            display: flex;
+            justify-content: flex-start;
+            gap: 30px; 
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: white;
+        }
+
+        .job-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .job-buttons .btn {
+            margin-left: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .job-buttons .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main content area -->
+    <div class="container mt-5">
+        <h1>Available Jobs</h1>
+        {% if error %}
+        <!-- Display error message if present -->
+        <div class="alert alert-danger text-center">
+            {{ error }}
+        </div>
+        <a href="/staff" class="btn btn-secondary">Refresh</a>
+        {% endif %}
+        {% for job in job %}
+        <!-- Loop over each available job -->
+        <div class="custom-container">
+            <div class="job-title">
+                {{ job[1] }}
+            </div>
+            <div class="job-details">
+                <span>Registration: {{ job[0] }}</span>
+                <span>Make: {{ job[2] }}</span>
+                <span>Model: {{ job[3] }}</span>
+                <span>Status: {{ job[5] }}</span>
+            </div>
+            <div class="job-buttons">
+                <!-- Action buttons for the job -->
+                <a href="/car_detail/{{ job[0] }}" class="btn btn-secondary">View Detail Of This Car</a>
+                <a href="/additional_notes/{{ job[4] }}" class="btn btn-secondary">View Additional Notes By Customer</a>
+                <a href="/store_staffId/{{ job[0] }}/{{ job[4] }}/{{ job[2] }}" class="btn btn-secondary">Starting this job</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+{% endblock %}

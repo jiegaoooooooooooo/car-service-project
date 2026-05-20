@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Apple Garage</title>
+    <!-- Title of the page as shown in the browser tab -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Loads Bootstrap CSS for responsive design and prebuilt styles -->
+    <style>
+        /* Custom styles for the page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #3a4d4a;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            color: white;
+        }
+        .navbar-custom {
+            background-color: #5cba00;
+            color: white;
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link,
+        .navbar-custom .nav-link:hover,
+        .navbar-custom .navbar-toggler-icon {
+            color: white;
+        }
+        body {
+            background-image: url('/static/images/background.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .content {
+            padding-top: 70px; 
+        }
+        .navbar-nav .nav-item {
+            margin-left: 15px; 
+            border: 1px solid white; 
+            border-radius: 10px; 
+        }
+        .navbar-nav .nav-link {
+            padding: 10px 15px; 
+        }
+        .navbar-nav .nav-link:hover {
+            background-color: #4c9a00; 
+            border-radius: 10px; 
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <a class="navbar-brand" href="">
+            Apple Garage
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Car Service Logo" width="30" height="30" class="d-inline-block align-top" style="border-radius: 50%;">
+            <!-- The image is styled to appear as a circle (border-radius: 50%) -->
+        </a>
+        {% if username %}
+            <span class="navbar-text text-white ml-3">Username: {{ username }}</span>
+        {% endif %}
+        <!-- Collapsible part of the navbar -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                {% block navbar %}
+                <li class="nav-item">
+                    <a id="navHome" class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a id="navLogin" class="nav-link" href="/login">LogIn</a>
+                </li>
+                <li class="nav-item">
+                    <a id="navSignup" class="nav-link" href="/signUp">SignUp</a>
+                </li>
+                <li class="nav-item">
+                    <a id="navCustomer" class="nav-link" href="/customer">My Car</a>
+                </li>
+                <li class="nav-item">
+                    <a id="navDetail" class="nav-link" href="/detail">Detail</a>
+                </li>
+                <li class="nav-item">
+                    <a id="navError" class="nav-link" href="/error">Error</a>
+                </li>
+                <li class="nav-item">
+                    <a id="navAddCar" class="nav-link" href="/addCar">Add New Car</a>
+                </li>
+                <li class="nav-item">
+                    <a id="navLogout" class="nav-link" href="/logout">LogOut</a>
+                </li>
+                <li class="nav-item">
+                    <a id="navStaff" class="nav-link" href="/staff">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a id="navJob" class="nav-link" href="/job">My Job</a>
+                </li>
+                <li class="nav-item">
+                    <a id="navAttendance" class="nav-link" href="/attendance/{{ id }}">Attendance</a>
+                </li>
+                <li class="nav-item">
+                    <a id="navJobHistory" class="nav-link" href="/jobHistory">Job History</a>
+                </li>
+                <li class="nav-item">
+                    <a id="navManager" class="nav-link" href="/manager">Records</a>
+                </li>
+                <li class="nav-item">
+                    <a id="navCreateStaffAccount" class="nav-link" href="/createStaffAccount">Create Staff</a>
+                </li>
+                {% endblock %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main content area -->
+    <div class="content">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    <!-- Footer section with copyright information -->
+    <footer class="mt-5">
+        &copy; 2025 Apple Garage Website
+    </footer>
+
+    <!-- libraries used -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

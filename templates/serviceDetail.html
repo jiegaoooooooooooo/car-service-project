@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+
+{% block navbar %}
+<!--Custom navbar items -->
+<li class="nav-item">
+  <a id="navManager" class="nav-link" href="/manager">Services</a>
+</li>
+<li class="nav-item">
+    <a id="navLogout" class="nav-link" href="/logout">LogOut</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<head>
+    <style>
+        /* Custom page styling */
+        .custom-container {
+            background-color: #5cba00;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        h1 {
+            color: black;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .row-header {
+            background-color: gray;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+        .row-data {
+            background-color: white;
+            padding: 10px;
+            border-bottom: 1px solid gray;
+            transition: background-color 0.3s ease;
+        }
+        .row-data .col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .d-flex {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<div class="container mt-5 custom-container">
+    <!-- Main content area -->
+    <div class="card">
+        <!-- Problem Section -->
+        <div class="card-body">
+            <h1>Problems</h1>
+            <div class="row row-header text-center">
+                <div class="col">No.</div>
+                <div class="col">Problem</div>
+            </div>
+            {% for problems in problems %}
+            <div class="row row-data text-center">
+                <div class="col">{{ loop.index }}</div>
+                <div class="col">{{ problems[0] }}</div>
+            </div>
+            {% endfor %}
+        </div>                 
+    </div>
+    <!-- Car Parts Used Section -->
+    <div class="card">
+        <div class="card-body">
+            <h1>Car Parts Used</h1>
+            <div class="row row-header text-center">
+                <div class="col">No.</div>
+                <div class="col">Parts Name</div>
+            </div>
+            {% for parts in parts %}
+            <div class="row row-data text-center">
+                <div class="col">{{ loop.index }}</div>
+                <div class="col">{{ parts[0] }}</div>
+            </div>
+            {% endfor %}
+            <div class="d-flex">
+                <a href="/manager" class="btn btn-secondary">Back</a>
+            </div>
+        </div>                 
+    </div>
+</div>
+{% endblock %}
