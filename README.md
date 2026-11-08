@@ -43,3 +43,41 @@ The system supports three distinct user roles with tailored functionalities:
 ## 📸 Demo
 
 ![Apple Garage Demo](preview.gif)
+
+---
+
+## 🧭 Instructions & Quick Start
+
+### Pre-configured Test Accounts
+You can log in with the following existing user accounts to test different roles:
+
+| Role | Username | Password | Description / Capabilities |
+| :--- | :--- | :--- | :--- |
+| **Customer** | `jiegao` | `2006` | Test vehicle registration via DVLA API, booking services, and viewing maintenance records. |
+| **Staff** | `j` | `123` | Test daily check-in, viewing available jobs, logging parts and problems, and managing job statuses. |
+| **Manager** | `m` | `789` | Test the master service record table, color-coded tracking, pricing entries, and staff account creation. |
+
+---
+
+## 🗄️ Database Schema & Architecture
+
+The application runs on a robust relational SQLite database (`carService.db`) consisting of 7 interlinked tables:
+* **`tblUser`**: Manages credentials, roles (`customer`, `staff`, `manager`), and secure bcrypt password hashes.
+* **`tblCar`**: Stores vehicle details, custom user-entered models, and links to owners via Foreign Keys.
+* **`tblService`**: Tracks service bookings, dates, pricing, statuses, and custom client notes.
+* **`tblParts`**: Records specific car parts and Euro Car Parts product codes used during maintenance.
+* **`tblProblem`**: Logs mechanic-reported issues for cross-reference and predictive troubleshooting.
+* **`tblCheckIn`**: Tracks staff daily attendance records.
+* **`tblServiceStaff`**: Manages many-to-many relationships for collaborative mechanic teams on a single job.
+
+---
+
+## 🚀 Installation & Local Execution
+
+### Prerequisites
+Make sure you have Python installed along with pip.
+
+### 1. Clone the Repository
+```bash
+git clone [https://github.com/jiegaoooooooooooo/car-service-project.git](https://github.com/jiegaoooooooooooo/car-service-project.git)
+cd car-service-project
