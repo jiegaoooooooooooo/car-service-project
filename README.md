@@ -1,4 +1,4 @@
-content = """# 🚗 Apple Garage - Full-Stack Car Service & Garage Management System
+# 🚗 Apple Garage - Full-Stack Car Service & Garage Management System
 
 [![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/Flask-Web%20Framework-green.svg)](https://flask.palletsprojects.com/)
