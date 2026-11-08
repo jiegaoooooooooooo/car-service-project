@@ -43,4 +43,4 @@ The system supports three distinct user roles with tailored functionalities:
 ## 📸 Demo
 
 ```markdown
-![Apple Garage Demo](static/images/demo.gif)
+![Apple Garage Demo](preview.gif)
